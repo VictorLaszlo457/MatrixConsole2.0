@@ -4,17 +4,20 @@ import numpy as np
 # Global variables
 # @correct_matrix should contain the final answer
 correct_matrix = np.zeros((0,0))
+entered_matrix =  np.zeros((0,0))
 
 # @dimension: the dimension (row or column) whose size the user has to input correctly
 # @matrix: the output matrix whose dimensions are to be correctly provided by the user
 def chance_loop(dimension, matrix):
-    # dim_size is the size of the dimension being iterated over
+    # @dim_size: size of the dimension specified in the argument
+    # @input_dim_size: size of dimension as input by the user
     dim_size = 0
+    input_dim_size = 0
     if (dimension == "rows"):
         dim_size = matrix.shape[0]
     elif (dimension == "columns"):
         dim_size = matrix.shape[1]
-    input_dim_size = 0
+
     #print("dim_size: " + str(dim_size))
     #print("dimensions: " + str(dimension))
     while (int(input_dim_size) != int(dim_size)): 
@@ -31,6 +34,31 @@ def chance_loop(dimension, matrix):
     return dim_size
 
 
+# Method ask the user to fill out a matrix of the given dimensions  
+# and returns the completed matrix to the user. 
+# @rows:  number of rows of the matrix.
+# @columns: number of columns of the matrix.
+# @return m the completed matrix with entries typed in by the user.
+def enter_matrix (rows, columns):
+    entered_matrix = np.zeros((rows,columns))
+    print("The matrix has a dimension of " + str(rows) + " x " + str(columns))
+    print("Please enter the values for the entries of the matrix")
+    # The two for loops are for traversing the matrix and the while loop
+    # allows the user to type in an input as often as necessary until an acceptable
+    # input in typed in.
+    for i in range(int(rows)): 
+        for j in range(int(columns)):
+            # As long as an invalid value is input for the entry, request that the user enter it again
+            is_valid = False 
+            while (is_valid == False):
+                try: 
+                    entered_matrix[i][j] = input("Enter a single value of index [" + str(i) + "][" + str(j) + "]: ")
+                    is_valid = True
+                except ValueError:
+                    print("Invalid input - please try again")
+    return entered_matrix  
+
+
 class MatrixAddition:
 
     def main(): 
@@ -40,45 +68,21 @@ class MatrixAddition:
         rows = 0
         columns = 0
         print("What is the sum of the matrices A and B given below?:")
-        print("Matrix A: ")
+        print("Matrix 1: ")
         print(matrix1)
         #matrix1.display(matrix1)
-        print("Matrix B: ")
+        print("Matrix 2: ")
         #matrix2.display(matrix2)
         print(matrix2)
         rows = chance_loop("rows", matrix1)
         columns = chance_loop("columns", matrix1)
+        entered_matrix = enter_matrix(rows, columns)
+        print("The Entered Matrix is: ")
+        print(entered_matrix)
         correct_matrix = matrix1 + matrix2
         print("The Correct Matrix is: ")
         print(correct_matrix)
-
-
-      
-    # Method ask the user to fill out a matrix of the given dimensions  
-    # and returns the completed matrix to the user. 
-    # @param rows the number of rows of the matrix.
-    # @param columns the number of columns of the matrix.
-    # @return m the completed matrix with entries typed in by the user.
-    # def enterMatrix (rows, columns):
-    #     entered_matrix = np.zeros((rows,columns))
-    #     # Is matrix valid?
-    #     is_valid = False
-    #     print("The matrix has dimensions of " + rows + " rows - " + columns + " columns")
-    #     # The two for loops are for traversing the matrix and the do-while loop
-    #     # allows the user to type in an input as often as necessary until an acceptable
-    #     # input in typed in.
-    #     for i in rows: 
-    #         for j in columns:
-    #             while (is_valid == False): 
-    #                 #print("Enter a single value of index matrix[" + (i + 1) + "][" + (j + 1) + "]: ")
-    #                 try: 
-    #                     entered_matrix[i][j] = int(input("Enter a single value of index matrix[" + (i + 1) + "][" + (j + 1) + "]: "))
-    #                     is_valid = True
-    #                 except ValueError:
-    #                     print("Invalid input - please try again")
-    #                     is_Valid = False 
-    #                     pass
-    #     return entered_matrix                       
+                    
 
     if __name__ == "__main__":
         main()
