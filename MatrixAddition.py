@@ -1,10 +1,10 @@
 #from AviMatrix import AviMatrix
 import numpy as np
 
-
+# Global variables
+# @correct_matrix should contain the final answer
 correct_matrix = np.zeros((0,0))
-updated_matrix = np.zeros((0,0))
-matrixA = np.zeros((0,0))
+
 # @dimension: the dimension (row or column) whose size the user has to input correctly
 # @matrix: the output matrix whose dimensions are to be correctly provided by the user
 def chance_loop(dimension, matrix):
@@ -83,3 +83,9 @@ class MatrixAddition:
     if __name__ == "__main__":
         main()
         
+
+
+
+
+        
+
