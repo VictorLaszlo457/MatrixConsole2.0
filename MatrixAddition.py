@@ -8,7 +8,7 @@ entered_matrix =  np.zeros((0,0))
 
 # @dimension: the dimension (row or column) whose size the user has to input correctly
 # @matrix: the output matrix whose dimensions are to be correctly provided by the user
-def chance_loop(dimension, matrix):
+def enter_dimensions(dimension, matrix):
     # @dim_size: size of the dimension specified in the argument
     # @input_dim_size: size of dimension as input by the user
     dim_size = 0
@@ -74,8 +74,8 @@ class MatrixAddition:
         print("Matrix 2: ")
         #matrix2.display(matrix2)
         print(matrix2)
-        rows = chance_loop("rows", matrix1)
-        columns = chance_loop("columns", matrix1)
+        rows = enter_dimensions("rows", matrix1)
+        columns = enter_dimensions("columns", matrix1)
         entered_matrix = enter_matrix(rows, columns)
         print("The Entered Matrix is: ")
         print(entered_matrix)
