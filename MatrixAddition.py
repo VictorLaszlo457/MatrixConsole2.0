@@ -52,11 +52,24 @@ def enter_matrix (rows, columns):
             is_valid = False 
             while (is_valid == False):
                 try: 
-                    entered_matrix[i][j] = input("Enter a single value of index [" + str(i) + "][" + str(j) + "]: ")
+                    entered_matrix[i][j] = int(input("Enter a single value of index [" + str(i) + "][" + str(j) + "]: "))
                     is_valid = True
                 except ValueError:
                     print("Invalid input - please try again")
     return entered_matrix  
+
+def matrix_check(entered_matrix, correct_matrix):
+    if ((entered_matrix == correct_matrix).all()):
+        print("You are correct! The matrix sum is ")
+        print(correct_matrix)
+    else: 
+        retry = str(input("Your answer is incorrect. Would you like to try again? Please type Y/N: ")).lower()
+        if (retry == "y" or retry == "yes"): 
+            reentered_matrix = enter_matrix(entered_matrix.shape[0], entered_matrix.shape[1])
+            matrix_check(reentered_matrix, correct_matrix)
+        elif (retry == "n" or retry == "no"): 
+            print("That's too bad. Just for reference, the correct answer would have been")
+            print(correct_matrix)
 
 
 class MatrixAddition:
@@ -80,16 +93,14 @@ class MatrixAddition:
         print("The Entered Matrix is: ")
         print(entered_matrix)
         correct_matrix = matrix1 + matrix2
-        print("The Correct Matrix is: ")
-        print(correct_matrix)
+
+        # If matrix_check returns "True", the user has input the correct matrix or would like to discontinue
+        # If matrix_check returns "False", the user has not input the correct matrix, but would like to try again 
+        exit_process = matrix_check(entered_matrix, correct_matrix)
+      
                     
 
     if __name__ == "__main__":
         main()
-        
-
-
-
-
         
 
