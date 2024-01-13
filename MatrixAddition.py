@@ -18,20 +18,20 @@ def enter_dimensions(dimension, matrix):
     elif (dimension == "columns"):
         dim_size = matrix.shape[1]
 
-    #print("dim_size: " + str(dim_size))
-    #print("dimensions: " + str(dimension))
-    while (int(input_dim_size) != int(dim_size)): 
+    is_valid_dim = False
+    while ((is_valid_dim == False) or (int(input_dim_size) != int(dim_size))):
         try:
             input_dim_size = input("How many " +  str(dimension) + " should the matrix have?: ")
             if (int(input_dim_size) != int(dim_size)): 
-                # print("input_dim_size: " + str(input_dim_size))
-                # print(int(input_dim_size) == int(dim_size))
                 print("Incorrect - please try again: ")
+            else: 
+                is_valid_dim = True
+                print("Correct! The matrix should have " + str(dim_size) + " " + str(dimension))
         except ValueError:
             print("The input typed is not a number")
-    
-    print("Correct! The matrix should have " + str(dim_size) + " " + str(dimension))
+
     return dim_size
+    
 
 
 # Method ask the user to fill out a matrix of the given dimensions  
@@ -73,6 +73,12 @@ def matrix_check(entered_matrix, correct_matrix):
             print(correct_matrix)
             return
 
+def get_input(options_array):
+    usr_input = ""
+    while usr_input not in options_array:
+        usr_input = str(input("").join(options_array))
+    return usr_input
+    
 class MatrixAddition:
 
     def main():
