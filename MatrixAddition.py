@@ -87,42 +87,41 @@ class MatrixAddition:
         rows = 0
         columns = 0
 
-        is_valid = str(input("Firstly, does the relation provided yield a valid answer? Please type Y/N: ")).lower()
-        acceptable_input = False
-        #while (acceptable_input == False): 
-            #try:
-        if (is_valid == "y" or is_valid == "yes"): 
-            acceptable_input = True
-            # If the user incorrectly answers "yes", but tell, the user that they are wrong and exit gracefully
-            if ((matrix1.shape[0] != matrix2.shape[0]) or (matrix1.shape[1] != matrix2.shape[1])):
-                print("That is not correct - the matrices' dimensions do not allow them to be added together")
-                return
-            if ((matrix1.shape[0] == matrix2.shape[0]) and (matrix1.shape[1] == matrix2.shape[1])):
-                print("That is correct! Let's continue: ")
-                print("What is the sum of the matrices 1 and 2 given below?:")
-                print("Matrix 1: ")
-                print(matrix1)
-                print("Matrix 2: ")
-                print(matrix2)
-                rows = enter_dimensions("rows", matrix1)
-                columns = enter_dimensions("columns", matrix1)
-                entered_matrix = enter_matrix(rows, columns)
-                print("The Entered Matrix is: ")
-                print(entered_matrix)
-                correct_matrix = matrix1 + matrix2
+        print("Firstly, does the relation provided yield a valid answer? Please type Yes/No or Y/N: ")
+        valid_inputs = ["Y", "y", "Yes", "YES", "yes", "N", "n", "No", "NO","no"]
+        is_valid = ""
+        while (is_valid not in valid_inputs): 
+            is_valid = str(input("")).lower()
+            if (is_valid == "y" or is_valid == "yes"): 
+                # If the user incorrectly answers "yes", but tell, the user that they are wrong and exit gracefully
+                if ((matrix1.shape[0] != matrix2.shape[0]) or (matrix1.shape[1] != matrix2.shape[1])):
+                    print("That is not correct - the matrices' dimensions do not allow them to be added together")
+                    return
+                if ((matrix1.shape[0] == matrix2.shape[0]) and (matrix1.shape[1] == matrix2.shape[1])):
+                    print("That is correct! Let's continue: ")
+                    print("What is the sum of the matrices 1 and 2 given below?:")
+                    print("Matrix 1: ")
+                    print(matrix1)
+                    print("Matrix 2: ")
+                    print(matrix2)
+                    rows = enter_dimensions("rows", matrix1)
+                    columns = enter_dimensions("columns", matrix1)
+                    entered_matrix = enter_matrix(rows, columns)
+                    print("The Entered Matrix is: ")
+                    print(entered_matrix)
+                    correct_matrix = matrix1 + matrix2
 
-                # If matrix_check returns "True", the user has input the correct matrix or would like to discontinue
-                # If matrix_check returns "False", the user has not input the correct matrix, but would like to try again 
-                exit_process = matrix_check(entered_matrix, correct_matrix)
-        elif (is_valid == "n" or is_valid == "no"): 
-            acceptable_input = True
-            if ((matrix1.shape[0] != matrix2.shape[0]) or (matrix1.shape[1] != matrix2.shape[1])):
-                print("That is correct - the matrices' dimensions do not allow them to be added together!")
-                return
-            if ((matrix1.shape[0] == matrix2.shape[0]) and (matrix1.shape[1] == matrix2.shape[1])):
-                print("Incorrect - the matrices can be added together.")
-            #except ValueError:
-            #    print("Unacceptable Input - please type Y/N")
+                    # If matrix_check returns "True", the user has input the correct matrix or would like to discontinue
+                    # If matrix_check returns "False", the user has not input the correct matrix, but would like to try again 
+                    exit_process = matrix_check(entered_matrix, correct_matrix)
+            elif (is_valid == "n" or is_valid == "no"): 
+                if ((matrix1.shape[0] != matrix2.shape[0]) or (matrix1.shape[1] != matrix2.shape[1])):
+                    print("That is correct - the matrices' dimensions do not allow them to be added together!")
+                    return
+                if ((matrix1.shape[0] == matrix2.shape[0]) and (matrix1.shape[1] == matrix2.shape[1])):
+                    print("Incorrect - the matrices can be added together.")
+            else: 
+                print("Please type an acceptable input: ")
 
             
       
