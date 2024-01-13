@@ -1,4 +1,4 @@
-#from AviMatrix import AviMatrix
+from AviMatrix import random_matrix_generation_level
 import numpy as np
 
 # Global variables
@@ -18,20 +18,21 @@ def enter_dimensions(dimension, matrix1, matrix2):
     elif (dimension == "columns"):
         dim_size = matrix2.shape[1]
 
-    #print("dim_size: " + str(dim_size))
-    #print("dimensions: " + str(dimension))
-    while (int(input_dim_size) != int(dim_size)): 
+    is_valid_dim = False
+    while ((is_valid_dim == False) or (int(input_dim_size) != int(dim_size))):
         try:
             input_dim_size = input("How many " +  str(dimension) + " should the matrix have?: ")
+
             if (int(input_dim_size) != int(dim_size)): 
-                # print("input_dim_size: " + str(input_dim_size))
-                # print(int(input_dim_size) == int(dim_size))
                 print("Incorrect - please try again: ")
+            else: 
+                is_valid_dim = True
+                print("Correct! The matrix should have " + str(dim_size) + " " + str(dimension))
         except ValueError:
             print("The input typed is not a number")
-    
-    print("Correct! The matrix should have " + str(dim_size) + " " + str(dimension))
+
     return dim_size
+    
 
 
 # Method ask the user to fill out a matrix of the given dimensions  
@@ -60,8 +61,9 @@ def enter_matrix (rows, columns):
 
 def matrix_check(entered_matrix, correct_matrix):
     if ((entered_matrix == correct_matrix).all()):
-        print("You are correct! The matrix sum is ")
+        print("You are correct! The matrix difference is ")
         print(correct_matrix)
+        return
     else: 
         retry = str(input("Your answer is incorrect. Would you like to try again? Please type Y/N: ")).lower()
         if (retry == "y" or retry == "yes"): 
@@ -70,36 +72,60 @@ def matrix_check(entered_matrix, correct_matrix):
         elif (retry == "n" or retry == "no"): 
             print("That's too bad. Just for reference, the correct answer would have been")
             print(correct_matrix)
+            return
+    
+class MatrixMultiplication:
 
+    def main():
 
-class MatrixAddition:
+        # Ask the user if the offered relation can produced a valid output
+        # Two possibilities:
+        # Option 1: If matrices can be used to perform a valid operation, then allow user to perform calculation
+        # Option 2: If matrices' dimensions are miss matched, the user needs to answer no and exit
 
-    def main(): 
-        matrix1 = np.matrix('1 2; 3 4')
-        matrix2 = np.matrix('2 3; 4 5')
-        matrix3 = np.zeros((2,2))
+        matrix1 = random_matrix_generation_level(1, "mul")[0]
+        matrix2 = random_matrix_generation_level(1, "mul")[0]
         rows = 0
         columns = 0
-        print("What is the product of the matrices 1 and 2 given below?:")
-        print("Matrix 1: ")
-        print(matrix1)
-        #matrix1.display(matrix1)
-        print("Matrix 2: ")
-        #matrix2.display(matrix2)
-        print(matrix2)
-        rows = enter_dimensions("rows", matrix1, matrix2)
-        columns = enter_dimensions("columns", matrix1, matrix2)
-        entered_matrix = enter_matrix(rows, columns)
-        print("The Entered Matrix is: ")
-        print(entered_matrix)
-        correct_matrix = np.matmul(matrix1, matrix2)
 
-        # If matrix_check returns "True", the user has input the correct matrix or would like to discontinue
-        # If matrix_check returns "False", the user has not input the correct matrix, but would like to try again 
-        exit_process = matrix_check(entered_matrix, correct_matrix)
+        print("Firstly, does the relation provided yield a valid answer? Please type Yes/No or Y/N: ")
+        valid_inputs = ["Y", "y", "Yes", "YES", "yes", "N", "n", "No", "NO","no"]
+        is_valid = ""
+        while (is_valid not in valid_inputs): 
+            is_valid = str(input("")).lower()
+            if (is_valid == "y" or is_valid == "yes"): 
+                # If the user incorrectly answers "yes", but tell, the user that they are wrong and exit gracefully
+                if ((matrix1.shape[1] != matrix2.shape[0])):
+                    print("That is not correct - the matrices' dimensions do not allow them to be multiplied")
+                    return
+                if ((matrix1.shape[1] == matrix2.shape[0])):
+                    print("That is correct! Let's continue: ")
+                    print("What is the product of the matrices 1 and 2 given below?:")
+                    print("Matrix 1: ")
+                    print(matrix1)
+                    print("Matrix 2: ")
+                    print(matrix2)
+                    rows = enter_dimensions("rows", matrix1, matrix2)
+                    columns = enter_dimensions("columns", matrix1, matrix2)
+                    entered_matrix = enter_matrix(rows, columns)
+                    print("The Entered Matrix is: ")
+                    print(entered_matrix)
+                    correct_matrix = np.matmul(matrix1,matrix2)
+
+                    # If matrix_check returns "True", the user has input the correct matrix or would like to discontinue
+                    # If matrix_check returns "False", the user has not input the correct matrix, but would like to try again 
+                    exit_process = matrix_check(entered_matrix, correct_matrix)
+            elif (is_valid == "n" or is_valid == "no"): 
+                if ((matrix1.shape[1] != matrix2.shape[0])):
+                    print("That is correct - the matrices' dimensions do not allow them to be multiplied!")
+                    return
+                if ((matrix1.shape[1] == matrix2.shape[0])):
+                    print("Incorrect - the matrices can be multiplied")
+            else: 
+                print("Please type an acceptable input: ")
+
+            
       
-                    
-
     if __name__ == "__main__":
         main()
         
