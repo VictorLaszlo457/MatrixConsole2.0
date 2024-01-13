@@ -1,14 +1,18 @@
 import numpy as np
 from random import randint
 
-# Class for generating a random matrix according to the level of difficulty
-def random_matrix_generation_level(level):
+# Class for generating a random matrix according to the level of difficulty and operation type
+# Since complexity increases exponentially as matrices grow larger when performing matrix multiplication
+# Operation type should be accounted for when generating matrices according to difficulty
+# Levels: 1,2,3
+# Operations: "add", "sub", "mul"
+def random_matrix_generation_level(level, operation):
 	rand_matrix = np.zeros((1,1))
 	# At level 0, matrices are only nx1 or 1xm  
 	if (int(level)==0):
 		# Randomly generate 1 or 2. 
 		# If output 1, then generate row matrix. If output 2, then generate column matrix 
-		# Create a row matrix
+		# Create a row matrix 
 		row_or_col = randint(1,2)
 		if (int(row_or_col) == 1):
 			num_row = randint(1,7)
@@ -34,7 +38,10 @@ def random_matrix_generation_level(level):
 				rand_matrix[i][j] = randint(1,100)
 	# At level 2, matrices are large square matrices
 	if (int(level)==2):
-		num_row = randint(3,6)
+		if (str(operation) == "mul"):
+			num_row = randint(1,3)
+		elif (str(operation) == "add" or str(operation) == "sub"):
+			num_row = randint(3,6)
 		num_col = num_row
 		rand_matrix = np.zeros((num_row, num_col))
 		# Update the values of the matrix with random integers
@@ -43,8 +50,12 @@ def random_matrix_generation_level(level):
 				rand_matrix[i][j] = randint(1,100)
 	# At level 3, matrices may be differing dimensions of multiplication and just larger for addition and subtraction
 	if (int(level)==3):
-		num_row = randint(1,6)
-		num_col = randint(1,6)
+		if (str(operation) == "mul"):
+			num_row = randint(2,5)
+			num_col = randint(2,5)
+		elif (str(operation) == "add" or str(operation) == "sub"):
+			num_row = randint(4,6)
+			num_col = randint(4,6)
 		rand_matrix = np.zeros((num_row, num_col))
 		# Update the values of the matrix with random integers
 		for i in range(num_row):
@@ -61,7 +72,13 @@ class AviMatrix:
 
 	def main():
 		#random_matrix_generation_level(2) 
-		random_matrix_generation_level(3) 
+		print("Add Matrix Level 3")
+		random_matrix_generation_level(3, "add")
+		print("Sub Matrix Level 3")
+		random_matrix_generation_level(3, "sub")
+		print("Mul Matrix Level 3")
+		random_matrix_generation_level(3, "mul")
+
 	
 	if __name__ == "__main__":
 		main()
