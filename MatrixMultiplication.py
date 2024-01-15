@@ -1,4 +1,4 @@
-from AviMatrix import random_matrix_generation_level
+from AviMatrix import random_matrix_generation_level, print_relation, print_matrix
 import numpy as np
 
 # Global variables
@@ -61,7 +61,7 @@ def enter_matrix (rows, columns):
 
 def matrix_check(entered_matrix, correct_matrix):
     if ((entered_matrix == correct_matrix).all()):
-        print("You are correct! The matrix difference is ")
+        print("You are correct! The matrix product is ")
         print(correct_matrix)
         return
     else: 
@@ -101,10 +101,13 @@ class MatrixMultiplication:
                 if ((matrix1.shape[1] == matrix2.shape[0])):
                     print("That is correct! Let's continue: ")
                     print("What is the product of the matrices 1 and 2 given below?:")
-                    print("Matrix 1: ")
-                    print(matrix1)
-                    print("Matrix 2: ")
-                    print(matrix2)
+                    # print("Matrix 1: ")
+                    # print(matrix1)
+                    # print("Matrix 2: ")
+                    # print(matrix2)
+                    print_matrix(matrix1)
+                    print(" * ")
+                    print_matrix(matrix2)
                     rows = enter_dimensions("rows", matrix1, matrix2)
                     columns = enter_dimensions("columns", matrix1, matrix2)
                     entered_matrix = enter_matrix(rows, columns)
