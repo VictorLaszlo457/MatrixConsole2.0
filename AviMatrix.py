@@ -63,8 +63,44 @@ def random_matrix_generation_level(level, operation):
 				rand_matrix[i][j] = randint(1,100)
 	print(rand_matrix)
 	print(rand_matrix.shape)
-	return rand_matrix
+	return rand_matrix, rand_matrix.shape[0], rand_matrix.shape[1]
 
+# Pretty print a single matrix
+def print_matrix(matrix1):
+	# Convert matrix1 to a nice string
+	for i in range(matrix1.shape[0]):
+		s1 = "["
+		for j in range(matrix1.shape[1]):
+			s1 = str(s1) + str(matrix1[i][j]) + " "
+		s1 = str(s1) + str(" ]")
+		print(s1)
+	return
+
+# Pretty print a whole relation
+def print_relation(operation, matrix1, matrix2):
+	# Convert matrix1 to a nice string
+	for i in range(matrix1.shape[0]):
+		s1 = "["
+		for j in range(matrix1.shape[1]):
+			s1 = str(s1) + str(matrix1[i][j]) + " "
+		s1 = str(s1) + str(" ]")
+		print(s1)
+
+	# Put "+", "-", or "*" depending on the operation
+	if (str(operation) == "add"):
+		print(" + ")
+	if (str(operation) == "sub"):
+		print(" - ")
+	if (str(operation) == "mul"):
+		print(" * ")
+	# Convert matrix2 to a nice string
+	for i in range(matrix2.shape[0]):
+		s2 = "["
+		for j in range(matrix2.shape[1]):
+			s2 = str(s2) + str(matrix2[i][j]) + " "
+		s2 = str(s2) + str(" ]")
+		print(s2)	
+	return
 
 class AviMatrix:
     # integer for matrix index and bool for checking if index is empty
