@@ -1,4 +1,4 @@
-from AviMatrix import random_matrix_generation_level
+from AviMatrix import random_matrix_generation_level, print_relation, print_matrix
 import numpy as np
 
 # Global variables
@@ -106,16 +106,16 @@ class MatrixSubtraction:
                 if ((matrix1.shape[0] == matrix2.shape[0]) and (matrix1.shape[1] == matrix2.shape[1])):
                     print("That is correct! Let's continue: ")
                     print("What is the difference of the matrices 1 and 2 given below?:")
-                    print("Matrix 1: ")
-                    print(matrix1)
-                    print("Matrix 2: ")
-                    print(matrix2)
+                    print_matrix(matrix1)
+                    print(" - ")
+                    print_matrix(matrix2)
                     rows = enter_dimensions("rows", matrix1)
                     columns = enter_dimensions("columns", matrix1)
                     entered_matrix = enter_matrix(rows, columns)
                     print("The Entered Matrix is: ")
                     print(entered_matrix)
-                    correct_matrix = matrix1 - matrix2
+                    correct_matrix = np.subtract(matrix1, matrix2)
+                    #correct_matrix = matrix1 - matrix2
 
                     # If matrix_check returns "True", the user has input the correct matrix or would like to discontinue
                     # If matrix_check returns "False", the user has not input the correct matrix, but would like to try again 
